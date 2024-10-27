@@ -65,35 +65,35 @@ export const Home = () => {
             </div>
         </div>
         <div className="h-1/5 w-full flex justify-center items-start">
-            <div 
-                className="flex justify-center items-center m-8 border-4 border-border rounded-lg px-4 hover:bg-gray-700 transform transition duration-200 active:scale-90 cursor-pointer"
-                onClick={async ()=>{
-                    clickRef.current.play();
-                    setLoading(true);
-                    if (publicKey && amount) {
-                        const success = await airdrop(walletAddress, amount);
-                        // const success = true;
-                        if (success) {
-                            console.log("Airdrop successful!");
-                            setSuccess({ show: true, message: 'Airdrop successful!' })
+            {(loading==false) ? 
+                <div 
+                    className="flex justify-center items-center m-8 border-4 border-border rounded-lg px-4 hover:bg-gray-700 transform transition duration-200 active:scale-90 cursor-pointer"
+                    onClick={async ()=>{
+                        clickRef.current.play();
+                        setLoading(true);
+                        if (publicKey && amount) {
+                            const success = await airdrop(walletAddress, amount);
+                            if (success) {
+                                console.log("Airdrop successful!");
+                                setSuccess({ show: true, message: 'Airdrop successful!' })
+                            } else {
+                                console.log("Airdrop failed.");
+                                setError({ show: true, message: `You've either reached your airdrop limit today or the airdrop faucet has run dry` });
+                            }
                         } else {
-                            console.log("Airdrop failed.");
-                            setError({ show: true, message: `You've either reached your airdrop limit today or the airdrop faucet has run dry` });
+                            console.log("Invalid publicKey or amount.");
+                            setError({ show: true, message: 'Invalid publicKey or amount' });
                         }
-                    } else {
-                        console.log("Invalid publicKey or amount.");
-                        setError({ show: true, message: 'Invalid publicKey or amount' });
-                    }
-                    setLoading(false);
-                }}
-            >
-                <div className="flex flex-row m-0 p-0 justify-center items-center">
-                    {(loading==false) ? <>
+                        setLoading(false);
+                    }}
+                >
+                    <div className="flex flex-row m-0 p-0 justify-center items-center">
                         <GiDroplets className="text-text text-2xl m-2"/>
                         <p className="text-text font-custom text-2xl m-2">Confirm Airdrop</p>
-                    </> : <FadeLoader className="ml-4" color="#512DA8"/>}
-                </div>
-            </div>
+                    </div>
+                </div> : 
+                <FadeLoader className="ml-4 px-4" color="#512DA8"/>
+            }
         </div>
     </div>
 }
