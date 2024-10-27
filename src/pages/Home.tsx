@@ -71,7 +71,7 @@ export const Home = () => {
                     onClick={async ()=>{
                         clickRef.current.play();
                         setLoading(true);
-                        if (publicKey && amount) {
+                        if (walletAddress!="" && amount!=0) {
                             const success = await airdrop(walletAddress, amount);
                             if (success) {
                                 console.log("Airdrop successful!");
