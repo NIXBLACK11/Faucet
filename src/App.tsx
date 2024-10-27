@@ -2,10 +2,9 @@ import { useMemo } from 'react';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets';
-import {
-    WalletModalProvider,
-} from '@solana/wallet-adapter-react-ui';
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl } from '@solana/web3.js';
+import { Analytics } from "@vercel/analytics/react";
  
 import '@solana/wallet-adapter-react-ui/styles.css';
 
@@ -26,6 +25,7 @@ export default function App() {
         <WalletProvider wallets={wallets} autoConnect>
             <WalletModalProvider>
               <div className="w-screen h-screen p-0 m-0">
+                <Analytics/>
                 <ThemeToggleButton />
                 <Home/>
               </div>
